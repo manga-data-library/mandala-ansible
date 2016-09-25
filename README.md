@@ -154,7 +154,7 @@ Ansible 2.1.0ではunarchiveモジュールにバグが有るため、本playboo
 
 開発環境のサーバに```mandala-ansible/ansible```をコピーし、当該ディレクトリ上で以下のコマンドを実行してください。
 
-    ansible-playbook -i local site.yml
+    ansible-playbook -i local local.yml
 
 ※SSHのagent forwardingを使ってgit cloneしているので、GitHubの秘密鍵がssh-addで登録されている必要があります。
 vagrant sshしてからansible-playbookコマンドを叩く場合も、ホストOS側でssh-addの実行をお願いします。
