@@ -1,0 +1,5 @@
+- name: git clone mandala-master-api
+  git: repo=git@github.com:manga-data-library/mandala-master-api.git dest={{ application_dir }}/mandala-master-api accept_hostkey=yes
+  tags:
+    - mandala
+    - master-api

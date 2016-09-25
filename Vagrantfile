@@ -5,7 +5,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.box = "centos/7"
 
-  config.vm.hostname = "dev-shangrila"
+  config.vm.hostname = "dev-mandala"
 
   if Vagrant::Util::Platform.windows?
     ENV["VAGRANT_DETECTED_OS"] = ENV["VAGRANT_DETECTED_OS"].to_s + " cygwin"

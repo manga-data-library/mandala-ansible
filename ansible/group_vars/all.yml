@@ -6,7 +6,7 @@ command_path: /usr/local/bin
 application_dir: /home/vagrant/repositories
 
 # ミドルウェアバージョン
-git_version: 2.9.3
+git_version: 2.10.0
 java_version: 1.8.0
 ant_version: 1.9.7
 flyway_version: 4.0.3

@@ -1,0 +1,12 @@
+- name: install mandala-master-api server
+  hosts: master-api
+  become: yes
+  roles:
+    - common
+    - sbt
+
+- name: deploy mandala-master-api
+  hosts: master-api
+  become: no
+  roles:
+    - mandala/master-api

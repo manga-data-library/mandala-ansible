@@ -1,0 +1,7 @@
+- name: install MySQL and configure the databases
+  hosts: dbservers
+  become: yes
+  roles:
+    - common
+    - mysql
+    - mysql/mandala

@@ -2,4 +2,4 @@ stage: development
 
 # flyway
 db_host: localhost
-db_name: anime_admin_development
+db_name: mandala

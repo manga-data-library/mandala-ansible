@@ -1,0 +1,11 @@
+- name: git clone mandala-db-migration
+  git: repo=git@github.com:manga-data-library/mandala-db-migration.git dest={{ application_dir }}/mandala-db-migration accept_hostkey=yes
+  tags:
+    - mandala
+    - db-migration
+
+- name: migrate Mandala DDL/DML
+  shell: flyway -locations=filesystem:{{ application_dir }}/mandala-db-migration/flyway-migration/{{ db_name }} migrate
+  tags:
+    - mandala
+    - db-migration

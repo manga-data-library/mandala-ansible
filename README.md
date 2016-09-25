@@ -1,15 +1,15 @@
-# Shansible
+# mandala-ansible
 
-ShangriLaが動作するサーバ群を構築するプロジェクトです。  
+Manga Data Libraryのサーバ群を構築するプロジェクトです。  
 本プロジェクトは以下の2つで構成されています。
 
 - Vagrant
 - Ansible
 
 
-# Vagrant
+# ローカル環境構築手順
 
-CentOS 7の仮想OS上に、ShangriLaプロジェクトのローカル開発環境を構築します。  
+CentOS 7の仮想OS上に、Mandalaのローカル開発環境を構築します。  
 構築はVagrantとVirtualBoxを用いて行います。
 
 ホストOSには40GB以上のディスク領域が必要です。
@@ -21,11 +21,11 @@ CentOS 7の仮想OS上に、ShangriLaプロジェクトのローカル開発環�
 Provisioningで以下のAnsible Playbookが実行されます。  
 ※ホストOSにAnsibleは不要です。  
 
-    shansible/ansible/local.yml
+    mandala-ansible/ansible/local.yml
 
-実行後に作成されるShangriLaの各リポジトリは、以下のディレクトリに配置されます。
+実行後に作成されるmandalaの各リポジトリは、以下のディレクトリに配置されます。
 
-    shansible/repositories
+    mandala-ansible/repositories
 
 
 ## 実行要件
@@ -47,6 +47,7 @@ Vagrantプラグインのインストール手順は以下になります。
 ```
 $ vagrant plugin install <プラグイン名>
 ```
+
 
 ### for Windows Users
 
@@ -103,27 +104,6 @@ rsh = [
 ].flatten.join(" ")
 ```
 
-##### 2. guest.rb
-
-- ファイルの場所
-
-```
-HashiCorp\Vagrant\embedded\gems\gems\vagrant-1.8.1\plugins\provisioners\ansible\config\guest.rb
-```
-
-41行目のremote_pathの設定処理を以下のようにを変更する。
-
-```rb
-#remote_path = Pathname.new(path).expand_path(@provisioning_path)
-remote_path = File.expand_path(path, @provisioning_path)
-
-# Remove drive letter if running on a Windows host
-remote_path = remote_path.gsub(/^[a-zA-Z]:/, "")
-```
-
-※これは以下で修正済みのため、最新バージョンでは修正されている可能性があります。
-- https://github.com/mitchellh/vagrant/commit/07f3d0b00dabc37281a01c6776eed22daeea7066
-
 
 ## 実行手順
 
@@ -141,11 +121,11 @@ rsyncの自動同期を行う場合は、ゲストOS起動後に以下のコマ�
 すべてのタスクが完了するまで、約1時間ほどかかります。  
 
 
-# ShangriLa Ansible Playbook
+# Ansible Playbook
 
-ShangriLaの実行環境を構築する、AnsibleのPlaybookです。
+Mandalaの実行環境を構築する、AnsibleのPlaybookです。
 
-    shansible/ansible
+    mandala-ansible/ansible
 
 
 ## 実行要求
@@ -170,9 +150,9 @@ Ansible 2.1.0ではunarchiveモジュールにバグが有るため、本playboo
 ```
 
 
-## 開発環境の構築手順
+## 開発環境構築の手動実行方法
 
-開発環境のサーバに```shansible/ansible```をコピーし、当該ディレクトリ上で以下のコマンドを実行してください。
+開発環境のサーバに```mandala-ansible/ansible```をコピーし、当該ディレクトリ上で以下のコマンドを実行してください。
 
     ansible-playbook -i local site.yml
 
@@ -192,23 +172,21 @@ Playbookの実行により、以下がCentOS 7上に配置されます。
 - git 2.9.3
 - ruby 2.3.1
 - rails 5
-- ShangriLaプロジェクト関連のリポジトリ
+- Mandala関連リポジトリ
 
 
-### ShangriLaプロジェクトのリポジトリ
+### Mandalaのリポジトリ
 
 group_vars/all.ymlで定義されたapplication_dir配下（デフォルト：/home/vagrant/repositories）に、
-ShangriLaプロジェクトの以下のリポジトリが作成されます。
+Mandalaの以下のリポジトリが作成されます。
 
-- [sora-playframework-scala](https://github.com/Project-ShangriLa/sora-playframework-scala)
-- [shangrila](https://github.com/Project-ShangriLa/shangrila)
-
-shanagrilaのDDL/DMLを、MySQLのDB（anime_admin_development）に対して実行してください。
+- [mandala-db-migration](https://github.com/manga-data-library/mandala-db-migration)
+- [mandala-master-api](https://github.com/manga-data-library/mandala-master-api)
 
 
 ### MySQL
 
-開発に利用するDBとして、anime_admin_developmentが作成されます。
+開発に利用するDBとして、"mandala"が作成されます。
 
 また、以下のユーザがMySQLに作成されます。
 

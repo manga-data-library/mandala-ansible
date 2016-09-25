@@ -1,0 +1,11 @@
+- name: install Rails server
+  hosts: railsservers
+  become: yes
+  roles:
+    - common
+
+- name: setup rails server
+  hosts: railsservers
+  become: no
+  roles:
+    - ruby

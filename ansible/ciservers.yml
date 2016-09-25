@@ -1,0 +1,14 @@
+- name: install CI server
+  hosts: ciservers
+  become: yes
+  roles:
+    - common
+    - sbt
+    - jenkins
+    - flyway
+
+- name: deploy Mandala DDL/DML
+  hosts: ciservers
+  become: no
+  roles:
+    - mandala/db
