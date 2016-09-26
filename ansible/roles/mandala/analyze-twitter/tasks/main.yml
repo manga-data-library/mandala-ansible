@@ -1,0 +1,5 @@
+- name: git clone mandala-analyze-twitter
+  git: repo=git@github.com:manga-data-library/mandala-analyze-twitter.git dest={{ application_dir }}/mandala-analyze-twitter accept_hostkey=yes
+  tags:
+    - mandala
+    - analyze-twitter

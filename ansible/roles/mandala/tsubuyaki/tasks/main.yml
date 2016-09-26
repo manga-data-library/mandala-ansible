@@ -1,0 +1,5 @@
+- name: git clone mandala-tsubuyaki
+  git: repo=git@github.com:manga-data-library/mandala-tsubuyaki.git dest={{ application_dir }}/mandala-tsubuyaki accept_hostkey=yes
+  tags:
+    - mandala
+    - tsubuyaki

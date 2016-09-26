@@ -13,6 +13,9 @@
   hosts: local
   become: no
   roles:
+    - ruby
     - mandala/db
     - mandala/master-api
-    - ruby
+    - mandala/analyze-twitter
+    - mandala/tsubuyaki
+    - mandala/scripts

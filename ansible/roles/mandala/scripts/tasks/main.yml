@@ -1,0 +1,5 @@
+- name: git clone mandala-scripts
+  git: repo=git@github.com:manga-data-library/mandala-scripts.git dest={{ application_dir }}/mandala-scripts accept_hostkey=yes
+  tags:
+    - mandala
+    - scripts
