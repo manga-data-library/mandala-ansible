@@ -1,5 +1,7 @@
 stage: development
 
+host_name: localhost
+
 # flyway
 db_host: localhost
 db_name: mandala

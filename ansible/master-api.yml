@@ -4,6 +4,8 @@
   roles:
     - common
     - sbt
+    - nginx
+    - nginx/mandala/master-api
 
 - name: deploy mandala-master-api
   hosts: master-api

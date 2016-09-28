@@ -1,0 +1,8 @@
+---
+- name: create mandala-mastar-api nginx.conf
+  template: src=mandala-master-api.conf.j2 dest={{ nginx_conf_dir }}/mandala-master-api.conf
+  tags:
+    - nginx
+    - mandala
+    - master-api
+  notify: restart nginx

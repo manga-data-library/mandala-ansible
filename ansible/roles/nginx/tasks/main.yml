@@ -1,0 +1,47 @@
+---
+- name: install nginx
+  yum: name=nginx state=present
+  tags: nginx
+
+- name: create log directory
+  file: path=/var/log/nginx/common state=directory mode="u=rw,g=r,o=r" owner=nginx group=nginx recurse=yes
+  tags: nginx
+
+- name: create ssl directory
+  file: path={{ nginx_conf_dir }}/ssl state=directory owner=root group=root mode=0755
+  when: stage == "development"
+  tags: nginx
+  
+- name: copy server.crt files
+  copy: src=server.crt dest={{ nginx_conf_dir }}/ssl/server.crt owner=root group=root mode=0644
+  when: stage == "development"
+  tags: nginx
+
+- name: copy server.key files
+  copy: src=server.key dest={{ nginx_conf_dir }}/ssl/server.key owner=root group=root mode=0644
+  when: stage == "development"
+  tags: nginx
+
+- name: delete default conf
+  file: path={{ item }} state=absent
+  with_items:
+    - {{ nginx_conf_dir }}/default.conf
+    - {{ nginx_conf_dir }}/example_ssl.conf 
+  tags: nginx
+  notify: restart nginx
+
+- name: create nginx.conf
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  tags: nginx
+  notify: restart nginx
+
+- name: ensure nginx is running (and enable it at boot)
+  service: name=nginx state=started enabled=yes
+  tags: nginx
+
+- name: copy /etc/logrotate.d/nginx
+  copy: src=logrotate_nginx
+        dest=/etc/logrotate.d/nginx
+  tags:
+    - nginx
+    - nginx_logrotate

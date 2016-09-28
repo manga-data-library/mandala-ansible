@@ -6,6 +6,7 @@
     - sbt
     - jenkins
     - flyway
+    - fabric
 
 - name: deploy Mandala DDL/DML
   hosts: ciservers
