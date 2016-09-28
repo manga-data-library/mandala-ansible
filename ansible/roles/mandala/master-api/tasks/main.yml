@@ -3,3 +3,11 @@
   tags:
     - mandala
     - master-api
+
+- name: activator setup
+  shell: ./activator compile
+  args:
+    chdir: "{{ application_dir }}/mandala-master-api"
+  tags:
+    - mandala
+    - master-api

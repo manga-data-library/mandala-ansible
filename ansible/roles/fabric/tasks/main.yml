@@ -1,0 +1,19 @@
+---
+- name: download get-pip
+  get_url: url=https://bootstrap.pypa.io/get-pip.py dest={{ src_dir }}
+  tags:
+    - pip
+    - fabric
+
+- name: install pip
+  shell: python get-pip.py
+  args:
+    chdir: "{{ src_dir }}"
+  tags:
+    - pip
+    - fabric
+
+- name: install fabric
+  shell: pip install fabric
+  tags:
+    - fabric

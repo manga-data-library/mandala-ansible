@@ -6,6 +6,9 @@
     - sbt
     - jenkins
     - flyway
+    - fabric
+    - nginx
+    - nginx/mandala/master-api
     - mysql
     - mysql/mandala
 

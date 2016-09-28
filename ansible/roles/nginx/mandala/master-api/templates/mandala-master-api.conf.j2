@@ -1,0 +1,27 @@
+# mandala-master-api
+
+proxy_buffering    off;
+proxy_set_header   X-Real-IP $remote_addr;
+proxy_set_header   X-Scheme $scheme;
+proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header   Host $http_host;
+
+upstream mandala-master-api {
+  server 127.0.0.1:{{ mandala_master_api_port }};
+}
+
+server {
+  listen 80;
+  server_name {{ host_name }};;
+  
+  access_log  /var/log/nginx/mandala-master-api/access.log ltsv;
+  error_log   /var/log/nginx/mandala-master-api/error.log warn;
+  
+  location / {
+    proxy_pass http://mandala-master-api;
+  }
+
+  location = /favicon.ico { access_log off; log_not_found off; }
+  location = /robots.txt  { access_log off; log_not_found off; }
+  location ~ /\.          { access_log off; log_not_found off; deny all; }
+}
