@@ -1,8 +1,15 @@
 ---
-- name: create mandala-mastar-api nginx.conf
+- name: create mandala-master-api nginx.conf
   template: src=mandala-master-api.conf.j2 dest={{ nginx_conf_dir }}/mandala-master-api.conf
   tags:
     - nginx
     - mandala
     - master-api
   notify: restart nginx
+
+- name: create nginx log file directory
+  file: path=/var/log/nginx/mandala-master-api state=directory owner=nginx group=nginx mode=0644
+  tags:
+    - nginx
+    - mandala
+    - master-api

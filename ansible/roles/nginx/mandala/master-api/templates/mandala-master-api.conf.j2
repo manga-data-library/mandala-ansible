@@ -12,7 +12,7 @@ upstream mandala-master-api {
 
 server {
   listen 80;
-  server_name {{ host_name }};;
+  server_name {{ host_name }};
   
   access_log  /var/log/nginx/mandala-master-api/access.log ltsv;
   error_log   /var/log/nginx/mandala-master-api/error.log warn;

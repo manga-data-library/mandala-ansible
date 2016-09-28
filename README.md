@@ -169,9 +169,10 @@ Playbookの実行により、以下がCentOS 7上に配置されます。
 - OpenJDK 1.8
 - sbt 最新
 - ant 1.9.7
-- git 2.9.3
+- git 2.10.0
 - ruby 2.3.1
 - rails 5
+- flyway 4.0.3
 - Mandala関連リポジトリ
 
 
@@ -182,6 +183,9 @@ Mandalaの以下のリポジトリが作成されます。
 
 - [mandala-db-migration](https://github.com/manga-data-library/mandala-db-migration)
 - [mandala-master-api](https://github.com/manga-data-library/mandala-master-api)
+- [mandala-analyze-twitter](https://github.com/manga-data-library/mandala-analyze-twitter)
+- [mandala-tsubuyaki](https://github.com/manga-data-library/mandala-tsubuyaki)
+- [mandala-scripts](https://github.com/manga-data-library/mandala-scripts)
 
 
 ### MySQL
@@ -205,3 +209,20 @@ MySQLのログファイルは、以下のディレクトリに配置されます
 
     mysql_log_dir: /var/log/mysql
 
+
+### nginx
+
+#### SSLの秘密鍵、証明書について
+
+Ansibleは、本番環境で利用するSSLの秘密鍵、証明書を作成・配置を行いません。
+必要に応じて`{{ nginx_conf_dir }}/ssl`ディレクトリ配下にファイルを配置してください。
+
+開発環境構築用のPlaybookを利用した場合は、
+以下の手順で作成された秘密鍵、証明書が上記ディレクトリに配置されます。
+
+```
+$ openssl genrsa 2048 > server.key
+$ openssl req -new -key server.key > server.csr
+（問い合わせに対しては全てEnterのみ）
+$ openssl x509 -days 3650 -req -signkey server.key < server.csr > server.crt
+```
