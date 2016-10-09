@@ -2,7 +2,9 @@
   get_url: |
     url=http://ftp.tsukuba.wide.ad.jp/software/apache//ant/binaries/apache-ant-{{ ant_version }}-bin.tar.gz
     dest={{ src_dir }}
-  tags: ant
+  tags:
+    - ant
+    - download
 
 - name: unarchive the compressed Ant binaries
   unarchive: "copy=no src={{ src_dir }}/apache-ant-{{ ant_version }}-bin.tar.gz dest={{ install_path }} creates=/usr/local/apache-ant-{{ ant_version }}"

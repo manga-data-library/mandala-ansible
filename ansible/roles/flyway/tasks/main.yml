@@ -1,6 +1,8 @@
 - name: download flyway
   get_url: url=https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/{{ flyway_version }}/flyway-commandline-{{ flyway_version }}.tar.gz dest={{ src_dir }}/
-  tags: flyway
+  tags:
+    - flyway
+    - download
 
 - name: unarchive flyway
   unarchive: src={{ src_dir }}/flyway-commandline-{{ flyway_version }}.tar.gz dest={{ install_path }}

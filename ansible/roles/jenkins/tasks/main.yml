@@ -15,6 +15,7 @@
   get_url: url=http://pkg.jenkins.io/redhat-stable/jenkins.repo dest=/etc/yum.repos.d
   tags: 
     - jenkins
+    - download
 
 - name: jenkins key import
   rpm_key: state=present key=http://pkg.jenkins.io/redhat-stable/jenkins.io.key

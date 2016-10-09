@@ -4,6 +4,7 @@
   tags:
     - pip
     - fabric
+    - download
 
 - name: install pip
   shell: python get-pip.py
@@ -12,8 +13,10 @@
   tags:
     - pip
     - fabric
+    - install
 
 - name: install fabric
   shell: pip install fabric
   tags:
     - fabric
+    - install

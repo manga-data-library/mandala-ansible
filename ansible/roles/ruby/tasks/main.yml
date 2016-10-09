@@ -38,7 +38,9 @@
 - name: install ruby
   shell: bash -lc "rbenv install {{ ruby_version }}"
   when: '"{{ ruby_version }}" not in ruby_install.stdout'
-  tags: ruby
+  tags:
+    - ruby
+    - install
 
 - name: set ruby global
   shell: bash -lc "rbenv global {{ ruby_version }}"
@@ -49,6 +51,7 @@
   tags:
     - ruby
     - rails
+    - install
 
 - name: install sqlite-devel
   yum: name=sqlite-devel state=present

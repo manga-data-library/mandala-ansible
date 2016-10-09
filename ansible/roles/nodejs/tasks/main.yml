@@ -9,7 +9,10 @@
 - name: install nvm
   shell: curl -o- https://raw.githubusercontent.com/creationix/nvm/{{ nvm_version }}/install.sh | bash
   register: nvm_install
-  tags: nodejs
+  tags:
+    - nodejs
+    - download
+    - install
 
 - name: node settings
   shell: |
@@ -17,4 +20,6 @@
     nvm install {{ node_version }}
     nvm alias default {{ node_version }}
   when: '"nvm is already installed" not in nvm_install.stdout'
-  tags: nodejs
+  tags:
+    - nodejs
+    - install

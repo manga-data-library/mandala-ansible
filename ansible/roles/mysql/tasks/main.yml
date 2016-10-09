@@ -1,6 +1,8 @@
 - name: download
   get_url: url=http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm dest={{ src_dir }}/
-  tags: mysql
+  tags:
+    - mysql
+    - download
 
 - name: local install
   yum: name={{ src_dir }}/mysql57-community-release-el7-7.noarch.rpm state=present

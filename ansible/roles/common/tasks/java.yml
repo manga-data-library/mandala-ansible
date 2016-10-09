@@ -1,3 +1,6 @@
 - name: java install
   yum: pkg=java-{{ java_version }}-openjdk state=latest
-  tags: common
+  tags:
+    - common
+    - java
+    - install

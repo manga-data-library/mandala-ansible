@@ -1,14 +1,22 @@
 - name: git download
   get_url: url=https://github.com/git/git/archive/v{{ git_version }}.tar.gz dest={{ src_dir }}/git-{{ git_version }}.tar.gz
-  tags: common
+  tags:
+    - common
+    - git
+    - download
 
 - name: git unarchive
   unarchive: src={{ src_dir }}/git-{{ git_version }}.tar.gz dest={{ src_dir }}
-  tags: common
+  tags:
+    - common
+    - git
 
 - name: git install
   shell: |
     cd {{ src_dir }}/git-{{ git_version }}
     make prefix={{ install_path }} all
     make prefix={{ install_path }} install
-  tags: common
+  tags:
+    - common
+    - git
+    - install
