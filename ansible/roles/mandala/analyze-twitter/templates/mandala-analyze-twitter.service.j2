@@ -1,0 +1,10 @@
+[Unit]
+Description = mandala-analyze-twitter daemon
+
+[Service]
+ExecStart = {{ application_dir }}/mandala-analyze-twitter/sh/start.sh
+Restart = always
+Type = simple
+
+[Install]
+WantedBy = multi-user.target

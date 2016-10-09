@@ -3,3 +3,10 @@
   tags:
     - mandala
     - analyze-twitter
+
+- name: register to /etc/systemd/system
+  template: src=mandala-analyze-twitter.service dest=/etc/systemd/system/mandala-analyze-twitter.service
+  tags:
+    - mandala
+    - analyze-twitter
+  when: stage == "production"

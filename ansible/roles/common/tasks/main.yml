@@ -7,7 +7,10 @@
     - openssl-devel 
     - zlib-devel
     - perl-ExtUtils-MakeMaker
-  tags: common
+    - unzip
+  tags:
+    - common
+    - install
  
 - name: git install
   include: git.yml
@@ -16,3 +19,9 @@
 - name: java install
   include: java.yml
   tags: common
+
+- name: check and create application directory
+  file: path="{{ application_dir }}" state=directory owner={{ ansible_env.SUDO_USER }} group={{ ansible_env.SUDO_USER }} mode=0755
+  tags:
+    - common
+    - mandala

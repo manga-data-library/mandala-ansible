@@ -27,10 +27,10 @@ Vagrant.configure(2) do |config|
   # type: "rsync"
   config.vm.synced_folder "ansible", "/home/vagrant/ansible",
     :owner => 'vagrant', :group => 'vagrant',
-    :mount_options => ['dmode=755', 'fmode=744']
+    :mount_options => ['dmode=755', 'fmode=755']
   config.vm.synced_folder "repositories", "/home/vagrant/repositories",
     :create => 'true', :owner => 'vagrant', :group => 'vagrant',
-    :mount_options => ['dmode=755', 'fmode=744']
+    :mount_options => ['dmode=755', 'fmode=755']
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
