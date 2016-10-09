@@ -4,6 +4,7 @@
   roles:
     - common
     - sbt
+    - gradle
     - jenkins
     - flyway
     - fabric
@@ -11,6 +12,7 @@
     - nginx/mandala/master-api
     - mysql
     - mysql/mandala
+    - play
 
 - name: deploy repositories
   hosts: local

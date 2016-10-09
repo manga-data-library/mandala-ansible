@@ -1,0 +1,24 @@
+- name: download Activator
+  get_url: >
+    url=https://downloads.typesafe.com/typesafe-activator/{{ activator_version }}/typesafe-activator-{{ activator_version }}.zip
+    dest={{ src_dir }}
+    timeout=1000
+    checksum=sha256:{{ activator_sha256sum }}
+  tags:
+    - play
+    - download
+
+- name: unarchive the compressed Activator
+  unarchive: "copy=no src={{ src_dir }}/typesafe-activator-{{ activator_version }}.zip dest={{ install_path }}/ creates=/usr/local/typesafe-activator-{{ activator_version }}"
+  tags:
+    - play
+
+- name: update the symbolic link to the Activator install
+  file: "path={{ install_path }}/activator src={{ install_path }}/activator-dist-{{ activator_version }} state=link force=yes"
+  tags:
+    - play
+
+- name: create the symbolic link to the Activator binary
+  file: "path={{ command_path }}/activator src={{ install_path }}/activator/bin/activator state=link"
+  tags:
+    - play

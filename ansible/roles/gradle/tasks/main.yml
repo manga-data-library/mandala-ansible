@@ -1,0 +1,23 @@
+- name: download Gradle
+  get_url: >
+    url=https://services.gradle.org/distributions/gradle-{{ gradle_version }}-bin.zip
+    dest={{ src_dir }}
+    timeout=1000
+  tags:
+    - gradle
+    - download
+
+- name: unarchive the compressed Gradle
+  unarchive: "copy=no src={{ src_dir }}/gradle-{{ gradle_version }}-bin.zip dest={{ install_path }}/ creates={{ install_path }}/gradle-{{ gradle_version }}"
+  tags:
+    - gradle
+
+- name: update the symbolic link to the Gradle install
+  file: "path={{ install_path }}/gradle src={{ install_path }}/gradle-{{ gradle_version }} state=link force=yes"
+  tags:
+    - gradle
+
+- name: create the symbolic link to the Gradle binary
+  file: "path={{ command_path }}/gradle src={{ install_path }}/gradle/bin/gradle state=link"
+  tags:
+    - gradle
