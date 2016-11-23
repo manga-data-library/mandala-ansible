@@ -1,0 +1,23 @@
+---
+# This playbook requires sudo.
+
+- name: yum install graphviz
+  yum: pkg=graphviz state=latest
+  tags:
+    - schemaspy
+    - install
+
+- name: create schemaspy directory
+  file: path={{ install_path }}/schemaspy state=directory mode=0755
+  tags:
+    - schemaspy
+
+- name: copy schemaspy jar
+  copy: src=schemaSpy_5.0.0.jar dest={{ install_path }}/schemaspy/ mode=0644
+  tags:
+    - schemaspy
+
+- name: create schema output directory
+  file: path={{ install_path }}/schemaspy/schema/{{ db_name }}/{{ stage }} state=directory mode=0755
+  tags:
+    - schemaspy

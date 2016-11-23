@@ -8,8 +8,11 @@
     - jenkins
     - flyway
     - fabric
+    - schemaspy
+    - schemaspy/mysql
     - nginx
     - nginx/mandala/master-api
+    - nginx/schemaspy
     - mysql
     - mysql/mandala
     - play

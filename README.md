@@ -34,7 +34,7 @@ Provisioningで以下のAnsible Playbookが実行されます。
 
 ### ソフトウェア
 
-- Vagrant 1.8.4
+- Vagrant 1.8.7
 - VirtualBox 5.0.X
 
 ### Vagrantプラグイン
@@ -157,7 +157,7 @@ Ansible 2.1.0ではunarchiveモジュールにバグが有るため、本playboo
     ansible-playbook -i local local.yml
 
 ※SSHのagent forwardingを使ってgit cloneしているので、GitHubの秘密鍵がssh-addで登録されている必要があります。
-vagrant sshしてからansible-playbookコマンドを叩く場合も、ホストOS側でssh-addの実行をお願いします。
+vagrant sshしてからansible-playbookコマンドを叩く場合も、ホストOS側で事前にssh-addの実行をお願いします。
 
 
 ## 環境の説明
@@ -173,6 +173,7 @@ Playbookの実行により、以下がCentOS 7上に配置されます。
 - ruby 2.3.1
 - rails 5
 - flyway 4.0.3
+- SchemaSpy 5.0.0
 - Mandala関連リポジトリ
 
 
