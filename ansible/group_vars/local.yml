@@ -3,6 +3,7 @@ stage: development
 # サーバ情報
 host_name: localhost
 mandala_master_api_port: 19000
+schemaspy_port: 29001
 
 # flyway
 db_host: localhost

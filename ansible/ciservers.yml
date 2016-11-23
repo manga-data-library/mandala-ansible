@@ -7,6 +7,10 @@
     - jenkins
     - flyway
     - fabric
+    - schemaspy
+    - schemaspy/mysql
+    - nginx
+    - nginx/schemaspy
 
 - name: deploy Mandala DDL/DML
   hosts: ciservers

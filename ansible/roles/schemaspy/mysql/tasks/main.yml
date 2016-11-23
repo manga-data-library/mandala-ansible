@@ -1,0 +1,19 @@
+---
+- name: download mysql-connector
+  get_url: url=https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-{{ mysql_connector_version }}.tar.gz dest={{ src_dir }}/
+  tags:
+    - schemaspy
+    - schemaspy-mysql
+    - download
+
+- name: unarchive mysql-connector
+  unarchive: src={{ src_dir }}/mysql-connector-java-{{ mysql_connector_version }}.tar.gz dest={{ src_dir }}
+  tags:
+    - schemaspy
+    - schemaspy-mysql
+
+- name: copy mysql-connector file
+  copy: src={{ src_dir }}/mysql-connector-java-{{ mysql_connector_version }}/mysql-connector-java-{{ mysql_connector_version }}-bin.jar dest={{ install_path }}/schemaspy/ mode=0644
+  tags:
+    - schemaspy
+    - schemaspy-mysql

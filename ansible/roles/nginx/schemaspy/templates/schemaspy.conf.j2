@@ -1,0 +1,17 @@
+# SchemaSpy
+
+server {
+  listen {{ schemaspy_port }};
+  server_name {{ host_name }};
+  server_name_in_redirect off;
+  
+  root /var/www/schemaspy;
+  index index.html index.htm;
+  
+  access_log  {{ nginx_log_dir }}/schemaspy/access.log ltsv;
+  error_log   {{ nginx_log_dir }}/schemaspy/error.log warn;
+
+  location = /favicon.ico { access_log off; log_not_found off; }
+  location = /robots.txt  { access_log off; log_not_found off; }
+  location ~ /\.          { access_log off; log_not_found off; deny all; }
+}

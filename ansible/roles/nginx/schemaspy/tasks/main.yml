@@ -1,0 +1,41 @@
+---
+# This playbook requires sudo.
+
+- name: create schemaspy dirictory for nginx
+  file: path=/var/www state=directory mode=0755
+  tags:
+    - nginx
+    - nginx-schemaspy
+
+- name: create schemaspy dirictory for nginx
+  file: path=/var/www/schemaspy state=directory owner={{ ansible_env.SUDO_USER }} group={{ ansible_env.SUDO_USER }} mode=0755
+  tags:
+    - nginx
+    - nginx-schemaspy
+
+- name: create schema dirictory of schemaspy
+  file: path=/var/www/schemaspy/{{ item }}/current state=directory owner={{ ansible_env.SUDO_USER }} group={{ ansible_env.SUDO_USER }} mode=0755
+  with_items:
+    - "{{ db_name }}/{{ stage }}"
+  tags:
+    - nginx
+    - nginx-schemaspy
+
+- name: index.html
+  template: src=index.html.j2 dest=/var/www/schemaspy/index.html
+  tags:
+    - nginx
+    - nginx-schemaspy
+
+- name: create schemaspy nginx.conf
+  template: src=schemaspy.conf.j2 dest={{ nginx_conf_dir }}/schemaspy.conf
+  tags:
+    - nginx
+    - nginx-schemaspy
+  notify: restart nginx
+
+- name: create schemaspy nginx log file directory
+  file: path={{ nginx_log_dir }}/schemaspy state=directory owner=nginx group=nginx mode=0644
+  tags:
+    - nginx
+    - nginx-schemaspy
