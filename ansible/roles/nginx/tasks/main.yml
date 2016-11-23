@@ -3,8 +3,12 @@
   yum: name=nginx state=present
   tags: nginx
 
+- name: chmod nginx log directory to read
+  file: path={{ nginx_log_dir }} mode=0744
+  tags: nginx
+
 - name: create log directory
-  file: path=/var/log/nginx/common state=directory mode="u=rw,g=r,o=r" owner=nginx group=nginx recurse=yes
+  file: path={{ nginx_log_dir }}/common state=directory mode="u=rw,g=r,o=r" owner=nginx group=nginx recurse=yes
   tags: nginx
 
 - name: create ssl directory
@@ -40,8 +44,5 @@
   tags: nginx
 
 - name: copy /etc/logrotate.d/nginx
-  copy: src=logrotate_nginx
-        dest=/etc/logrotate.d/nginx
-  tags:
-    - nginx
-    - nginx_logrotate
+  template: src=logrotate_nginx.j2 dest=/etc/logrotate.d/nginx
+  tags: nginx

@@ -1,3 +1,11 @@
+---
+- name: selinux disabled
+  selinux: policy=targeted state=disabled
+  tags:
+    - common
+    - selinux
+  notify: reboot system
+
 - name: package install
   yum: pkg={{ item }} state=latest
   with_items:
@@ -25,3 +33,22 @@
   tags:
     - common
     - mandala
+
+- name: .vimrc settings
+  copy: src=.vimrc dest="{{ item.home_dir }}" mode=0644 
+        owner={{ item.user_name }} group={{ item.user_name }} backup=yes
+  with_items:
+    - { home_dir: '/root/',                              user_name: 'root' }
+    - { home_dir: '/home/{{ ansible_env.SUDO_USER }}/',  user_name: '{{ ansible_env.SUDO_USER }}' }
+  tags:
+    - common
+    - vim
+
+- name: source .vimrc
+  shell: source {{ item }}/.vimrc
+  with_items:
+    - /root
+    - /home/{{ ansible_env.SUDO_USER }}
+  tags:
+    - common
+    - vim
