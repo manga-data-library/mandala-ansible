@@ -1,0 +1,69 @@
+---
+- name: insitall dependencies packages
+  yum: pkg={{ item }} state=latest
+  with_items:
+    - autoconf
+    - automake
+    - libtool
+    - curl
+    - make
+    - gcc-c++
+    - unzip
+  tags:
+    - grpc
+
+- name: git clone protocol 
+  git: repo=https://github.com/google/protobuf.git dest={{ src_dir }}/protobuf
+  tags:
+    - grpc
+    - download
+
+- name: autogen
+  shell: ./autogen.sh
+  args:
+    chdir: "{{ src_dir }}/protobuf"
+  tags:
+    - grpc
+
+- name: configure
+  shell: ./configure
+  args:
+    chdir: "{{ src_dir }}/protobuf"
+  tags:
+    - grpc
+
+- name: make clean
+  shell: make clean
+  args:
+    chdir: "{{ src_dir }}/protobuf"
+  tags:
+    - grpc
+
+- name: make
+  shell: make
+  args:
+    chdir: "{{ src_dir }}/protobuf"
+  tags:
+    - grpc
+
+- name: make check
+  shell: make check
+  args:
+    chdir: "{{ src_dir }}/protobuf"
+  tags:
+    - grpc
+
+- name: make install
+  shell: make install
+  args:
+    chdir: "{{ src_dir }}/protobuf"
+  tags:
+    - grpc
+    - install
+
+- name: refresh shared library cache
+  shell: ldconfig
+  args:
+    chdir: "{{ src_dir }}/protobuf"
+  tags:
+    - grpc

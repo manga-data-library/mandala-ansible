@@ -16,6 +16,9 @@
     - mysql
     - mysql/mandala
     - play
+    - go
+    - grpc
+    - grpc/go
 
 - name: deploy repositories
   hosts: local

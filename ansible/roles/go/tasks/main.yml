@@ -1,0 +1,27 @@
+---
+- name: download go
+  get_url:
+    url: https://storage.googleapis.com/golang/go{{ go_version }}.linux-amd64.tar.gz
+    dest: "{{ src_dir }}"
+    checksum: sha256:{{ go_sha256 }}
+  tags:
+    - go
+    - download
+
+- name: unarchive go
+  unarchive: copy=no src={{ src_dir }}/go{{ go_version }}.linux-amd64.tar.gz dest={{ install_path }} creates={{ install_path }}/go
+  tags:
+    - go
+
+- name: .bash_profile settings
+  blockinfile:
+    dest: "{{ item }}/.bash_profile"
+    content: |
+      export GOROOT=/usr/local/go
+      export GOPATH=$GOROOT/libexec
+      export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+  with_items:
+    - /root
+    - /home/{{ ansible_env.SUDO_USER }}
+  tags:
+    - go
