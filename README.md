@@ -70,40 +70,6 @@ Chocolateyをインストール後、以下のコマンドでインストール�
 - ```PATH```に```C:\ProgramData\chocolatey\lib```を追加（;区切り）
 - ```CYGWIN```に```nodosfilewarning```を追加（スペース区切り）
 
-#### Vagrantファイルの修正
-
-Vagrant 1.8.1時点でのエラー回避のため、インストールしたVagrantのファイルを編集します。
-
-##### 1. helper.rb
-
-- ファイルの場所
-
-```
-HashiCorp\Vagrant\embedded\gems\gems\vagrant-1.8.1\plugins\synced_folders\rsync\helper.rb
-```
-
-48行目のhostpathの設定処理を以下のように変更する。
-```rb
-#hostpath = Vagrant::Util::Platform.cygwin_path(hostpath)
-hostpath = "/cygdrive" + Vagrant::Util::Platform.cygwin_path(hostpath)
-```
-
-77-79行目をコメントアウト
-
-```rb
-rsh = [
-  "ssh -p #{ssh_info[:port]} " +
-  proxy_command +
-#  "-o ControlMaster=auto " +
-#  "-o ControlPath=#{controlpath} " +
-#  "-o ControlPersist=10m " +
-  "-o StrictHostKeyChecking=no " +
-  "-o IdentitiesOnly=true " +
-  "-o UserKnownHostsFile=/dev/null",
-  ssh_info[:private_key_path].map { |p| "-i '#{p}'" },
-].flatten.join(" ")
-```
-
 
 ## 実行手順
 
@@ -130,24 +96,7 @@ Mandalaの実行環境を構築する、AnsibleのPlaybookです。
 
 ## 実行要求
 
-Vagrant以外から実行する場合は、実行環境にAnsible 2.0+ をインストールしてください。
-
-
-### Ansible 2.1.0を使う場合の注意
-
-Ansible 2.1.0ではunarchiveモジュールにバグが有るため、本playbookでunarchiveを利用している箇所がエラーになります。
-回避するためには、以下のようにenvironmentを追加してください。
-
-```yml
-# TODO:environmentはAnsible2.1.0のバグ回避用
-- name: unarchive the compressed Ant binaries
-  unarchive: "copy=no src={{ src_dir }}/apache-ant-{{ ant_version }}-bin.tar.gz dest=/usr/local creates=/usr/local/apache-ant-{{ ant_version }}"
-  environment:
-    LANG: "C"
-    LC_ALL: "C"
-    LC_MESSAGES: "C"
-  tags: ant
-```
+Vagrant以外から実行する場合は、実行環境にAnsible 2.2.0+ をインストールしてください。
 
 
 ## 開発環境構築の手動実行方法
@@ -164,6 +113,8 @@ vagrant sshしてからansible-playbookコマンドを叩く場合も、ホス�
 
 Playbookの実行により、以下がCentOS 7上に配置されます。
 
+### ミドルウェア
+
 - Jenkins 2系最新
 - MySQL 5.7
 - OpenJDK 1.8
@@ -174,7 +125,8 @@ Playbookの実行により、以下がCentOS 7上に配置されます。
 - rails 5
 - flyway 4.0.3
 - SchemaSpy 5.0.0
-- Mandala関連リポジトリ
+- go 1.7.4
+- gRPC(protocol-buffer)
 
 
 ### Mandalaのリポジトリ
