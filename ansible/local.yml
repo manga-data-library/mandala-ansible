@@ -1,4 +1,4 @@
-- name: install Local Server
+- name: install tasks for Local Server
   hosts: local
   become: yes
   roles:
@@ -19,8 +19,13 @@
     - go
     - grpc
     - grpc/go
+    
+#    # kibana
+#    - elasticsearch
+#    - elasticsearch/curator
+#    - kibana
 
-- name: deploy repositories
+- name: install tasks for local user and deploy repositories
   hosts: local
   become: no
   roles:

@@ -1,19 +1,2 @@
-localhost ansible_ssh_pass=vagrant ansible_ssh_common_args="-o ForwardAgent=yes"
-
-[ciservers]
+[local]
 localhost
-
-[dbservers]
-localhost
-
-[master-api]
-localhost
-
-[railsservers]
-localhost
-
-[local:children]
-ciservers
-dbservers
-master-api
-railsservers

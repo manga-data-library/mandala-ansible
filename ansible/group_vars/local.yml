@@ -2,6 +2,9 @@ stage: development
 
 # サーバ情報
 host_name: localhost
+ansible_user: vagrant
+ansible_ssh_pass: vagrant
+ansible_ssh_common_args: "-o ForwardAgent=yes"
 mandala_master_api_port: 19000
 schemaspy_port: 29001
 
