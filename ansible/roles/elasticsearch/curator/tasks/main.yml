@@ -1,0 +1,39 @@
+---
+- name: import elasticsearch key
+  rpm_key:
+    state: present
+    key: https://packages.elastic.co/GPG-KEY-elasticsearch
+  tags:
+    - elasticsearch
+    - curator
+
+- name: copy curator.repo
+  copy: src=curator.repo dest=/etc/yum.repos.d/ owner=root group=root mode=0644
+  tags:
+    - elasticsearch
+    - curator
+
+- name: install curator
+  yum: name=elasticsearch-curator state=present
+  tags:
+    - elasticsearch
+    - curator
+    - install
+
+- name: create .curator directory
+  file: path=~/.curator state=directory owner=root group=root mode=0755
+  tags:
+    - elasticsearch
+    - curator
+  
+- name: add curator settings
+  template: src=delete_indices.j2 dest=~/.curator/delete_indices_{{ curator_delete_days }}_days
+  tags:
+    - elasticsearch
+    - curator
+
+- name: add cron task
+  template: src=cron_crator.j2 dest=/etc/cron.daily/curator owner=root group=root mode=0755
+  tags:
+    - elasticsearch
+    - curator

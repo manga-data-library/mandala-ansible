@@ -1,0 +1,33 @@
+---
+- name: import elasticsearch key
+  rpm_key:
+    state: present
+    key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+  tags:
+    - elasticsearch
+
+- name: copy elasticsearch.repo
+  copy: src=elasticsearch.repo dest=/etc/yum.repos.d/ owner=root group=root mode=0644
+  tags:
+    - elasticsearch
+
+- name: install elasticsearch
+  yum: name=elasticsearch state=present
+  tags:
+    - elasticsearch
+    - install
+
+- name: configure use memory settings
+  blockinfile:
+    dest: /etc/elasticsearch/elasticsearch.yml
+    content: |
+      indices.fielddata.cache.expire: 60m
+      indices.fielddata.cache.size: 20%
+  tags:
+    - elasticsearch
+
+- name: run elasticsearch
+  systemd: name=elasticsearch state=started daemon_reload=yes enabled=yes
+  tags: 
+    - elasticsearch
+    - start

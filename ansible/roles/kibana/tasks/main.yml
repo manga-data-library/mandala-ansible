@@ -1,0 +1,25 @@
+---
+# 前提としてelasticsearchのインストールが必要
+- name: install the public signing key for kibana
+  rpm_key:
+    state: present
+    key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+  tags:
+    - kibana
+
+- name: copy kibana.repo
+  copy: src=kibana.repo dest=/etc/yum.repos.d/ owner=root group=root mode=0644
+  tags:
+    - kibana
+
+- name: install kibana
+  yum: name=kibana state=present
+  tags:
+    - kibana
+    - install
+
+- name: run kibana
+  systemd: name=kibana state=started daemon_reload=yes enabled=yes
+  tags: 
+    - kibana
+    - start

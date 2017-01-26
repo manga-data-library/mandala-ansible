@@ -129,6 +129,12 @@ Playbookの実行により、以下がCentOS 7上に配置されます。
 - gRPC(protocol-buffer)
 
 
+#### 実行されていないRole
+
+- elasticsearch 5.1+
+- kibana 5.1+
+
+
 ### Mandalaのリポジトリ
 
 group_vars/all.ymlで定義されたapplication_dir配下（デフォルト：/home/vagrant/repositories）に、
