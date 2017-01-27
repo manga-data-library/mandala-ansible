@@ -4,11 +4,11 @@
   tags: ruby
 
 - name: git clone rbenv
-  git: repo=git@github.com:rbenv/rbenv.git dest=~/.rbenv accept_hostkey=yes
+  git: repo=https://github.com/rbenv/rbenv.git dest=~/.rbenv
   tags: ruby
 
 - name: git clone ruby-build
-  git: repo=git@github.com:rbenv/ruby-build.git dest=~/.rbenv/plugins/ruby-build accept_hostkey=yes
+  git: repo=https://github.com/rbenv/ruby-build.git dest=~/.rbenv/plugins/ruby-build
   tags: ruby
 
 - name: configure rbenv

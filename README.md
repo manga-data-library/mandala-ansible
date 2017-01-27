@@ -115,22 +115,25 @@ Playbookの実行により、以下がCentOS 7上に配置されます。
 
 ### ミドルウェア
 
-- Jenkins 2系最新
+#### Mandalaで利用するもの
+
 - MySQL 5.7
-- OpenJDK 1.8
+- OpenJDK 1.8.+
 - sbt 最新
-- ant 1.9.7
 - git 2.10.0
 - ruby 2.3.1
 - rails 5
 - flyway 4.0.3
+
+
+#### Mandalaで現在利用していないもの
+
+- Jenkins 2.+
+- ant 1.9.7
 - SchemaSpy 5.0.0
+- nginx 最新
 - go 1.7.4
 - gRPC(protocol-buffer)
-
-
-#### 実行されていないRole
-
 - elasticsearch 5.1+
 - kibana 5.1+
 
